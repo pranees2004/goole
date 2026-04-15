@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .badge {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        .content {
+            padding: 30px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .alert-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .info-box {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .success-box {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: #f8f8fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔔 Notification</h1>
+            <div class="badge">{{ category | default("General") }}</div>
+        </div>
+        <div class="content">
+            <p>Hi {{ name | default("there") }},</p>
+
+            {% if priority == "high" %}
+            <div class="alert-box">
+                <strong>⚠️ Important:</strong> {{ message }}
+            </div>
+            {% elif priority == "success" %}
+            <div class="success-box">
+                <strong>✅ Success:</strong> {{ message }}
+            </div>
+            {% else %}
+            <div class="info-box">
+                <strong>ℹ️ Info:</strong> {{ message }}
+            </div>
+            {% endif %}
+
+            {% if details %}
+            <p><strong>Details:</strong></p>
+            <p>{{ details }}</p>
+            {% endif %}
+
+            {% if action_url %}
+            <a href="{{ action_url }}" class="button">View Details →</a>
+            {% endif %}
+        </div>
+        <div class="footer">
+            <p>Sent by MailBot at {{ timestamp | default("") }}</p>
+            <p>© {{ year | default("2026") }} MailBot</p>
+        </div>
+    </div>
+</body>
+</html>
